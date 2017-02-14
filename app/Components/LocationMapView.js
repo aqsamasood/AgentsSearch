@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     height: 15,
     textAlign: 'left',
     fontSize: 10,
-    color: 'blue',
+    color: '#1F95E3',
   },
    map: {
     flex: 1

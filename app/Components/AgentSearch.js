@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, NetInfo, NavigatorIOS } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, NetInfo, NavigatorIOS, Image } from 'react-native';
 import SearchResult from './SearchResult';
 
+const homeImage = require('../Resources/home-icon.png');
 const yelp_search = require('../API/yelp_search');
 const Texts = {
   description: 'Search for real estate agents by city or country.',
@@ -92,6 +93,7 @@ class Search extends Component {
         onSubmitEditing = { this._onSubmitSearchText.bind() }
         placeholder = { Texts.placeholderText }
       />
+      <Image style = { styles.homeImage } source = {homeImage}/>
       </View>
     );
   }
@@ -121,6 +123,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     color: '#1F95E3'
   },
+  homeImage: {
+    height: 200,
+    width: 200,
+    marginTop: 20,
+    justifyContent: 'center',
+  }
 });
 
 module.exports = Search;
