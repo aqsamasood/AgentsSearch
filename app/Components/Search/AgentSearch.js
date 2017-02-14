@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, NetInfo } from 'react-native';
 
 const Texts = {
   description: 'Search for real estate agents by city or country.',
@@ -8,8 +8,43 @@ const Texts = {
 
 class Search extends Component {
   state = {
+    isConnected: null,
     searchString: '',
+    position: 'unknown',
   };
+
+  componentDidMount() {
+    //add event listener for checking internet availability
+    NetInfo.isConnected.addEventListener(
+      'change',
+      this._handleConnectivityChange
+    );
+
+    NetInfo.isConnected.fetch().done(
+      (isConnected) => { this.setState({isConnected}); }
+    );
+
+    //Get user's current location
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({position});
+      },
+    );
+  }
+
+  componentWillUnmount() {
+    //remove event listener
+    NetInfo.isConnected.removeEventListener(
+      'change',
+      this._handleConnectivityChange
+    );
+  }
+
+  _handleConnectivityChange = (isConnected) => {
+    this.setState({
+      isConnected,
+    })
+  }
 
   updateText = (text) => {
     this.setState((state) => {
