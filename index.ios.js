@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry, NavigatorIOS, StyleSheet } from 'react-native'
-import Search from './app/components/Search'
+import Search from './app/Components/Search/AgentSearch'
 
 class AgentsSearch extends Component {
   render() {
