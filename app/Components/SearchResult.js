@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, LayoutAnimation, TabBarIOS} from 'react-native';
 
+const AgentList = require('./AgentList')
+const globeIcon = require('../Resources/globe-icon.png')
+const listIcon  = require('../Resources/list-icon.png') 
+
 class SearchResult extends Component {
   state = {
     toggled: true,
@@ -8,19 +12,18 @@ class SearchResult extends Component {
     selectedTab: 'listTab',
   };
 
-
   render() {
     return (
       <TabBarIOS
-        unselectedTintColor="white"
-        tintColor="black"
-        unselectedItemTintColor="white"
-        barTintColor="darkslateblue">
+        unselectedTintColor = "black"
+        tintColor = "white"
+        unselectedItemTintColor = "black"
+        barTintColor = "#1F95E3">
         <TabBarIOS.Item
-          title="List"
-          icon={require('./location-icon.png')}
-          selected={this.state.selectedTab === 'listTab'}
-          onPress={() => {
+          title = "List"
+          icon = { listIcon }
+          selected = { this.state.selectedTab === 'listTab'}
+          onPress = {() => {
             this.setState({
               selectedTab: 'listTab',
             });
@@ -28,17 +31,15 @@ class SearchResult extends Component {
          <AgentList data = {this.state.results.businesses} />
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          icon={require('./location-icon.png')}
-          selectedIcon={require('./location-icon.png')}
-          title="More"
-          selected={this.state.selectedTab === 'mapTab'}
+          icon = { globeIcon }
+          title = "Map"
+          selected = { this.state.selectedTab === 'mapTab' }
           onPress={() => {
             this.setState({
               selectedTab: 'mapTab',
-              presses: this.state.presses + 1
             });
           }}>
-          <LocationMapView data = {this.state.results}/>
+          <View style = {{flex: 1 , backgroundColor : 'red'}}/>
         </TabBarIOS.Item>
       </TabBarIOS>
     );
@@ -55,3 +56,5 @@ var styles = StyleSheet.create({
     margin: 50,
   },
 });
+
+module.exports = SearchResult

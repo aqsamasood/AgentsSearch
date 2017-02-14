@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, NetInfo } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, NetInfo, NavigatorIOS } from 'react-native';
+import SearchResult from './SearchResult';
 
 const yelp_search = require('../API/yelp_search');
 const Texts = {
@@ -50,7 +51,15 @@ class Search extends Component {
     let nav = this.props.navigator
       yelp_search.fetchList(this.state.searchString, function(result) {
       if (result.businesses) {
-        console.log("Agents: ", result)
+        nav.push({
+          title: "Agent List",
+          component: SearchResult,
+          leftButtonTitle: '',
+          onLeftButtonPress: () => nav.pop(),
+          passProps: {
+            data: result
+          }
+        })
       } else{
         console.log("Error", result)
         alert(result.error.text)
@@ -100,7 +109,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     fontSize: 18,
     textAlign: 'center',
-    color: '#48BBEC'
+    color: '#1F95E3'
   },
   searchInput: {
     height: 36,
@@ -108,9 +117,9 @@ const styles = StyleSheet.create({
     marginRight: 5,
     fontSize: 18,
     borderWidth: 1,
-    borderColor: '#48BBEC',
+    borderColor: '#1F95E3',
     borderRadius: 8,
-    color: '#48BBEC'
+    color: '#1F95E3'
   },
 });
 
