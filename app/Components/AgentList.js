@@ -9,15 +9,17 @@ class AgentList extends Component {
     
     var dataStore = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2})
     this.state = {
+      count: props.data.length,
       results: dataStore.cloneWithRows(props.data)
     }
   }
 
   render() {
+    console.log("PRINT COUNT", this.state.count)
     return (
      <ListView
           style={{flex: 1, paddingTop: 20, paddingBottom: 40}}
-          initialListSize={10}
+          initialListSize={this.state.count}
           dataSource={this.state.results}
           renderRow= {(result) => { return <AgentCell agent = {result} /> }} /> 
     );

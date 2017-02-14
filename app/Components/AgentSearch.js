@@ -22,6 +22,7 @@ class Search extends Component {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setState({position});
+        this._handleUserCurrentLocation()
       },
       (error) => {},
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
@@ -66,6 +67,13 @@ class Search extends Component {
         alert(result.error.text)
       };
     })
+  }
+
+  _handleUserCurrentLocation() {
+    let position = this.state.position
+    console.log("Cureent location :", position.coords.latitude + "," + position.coords.longitude)
+    this.state.searchString = position.coords.latitude + "," + position.coords.longitude
+    this._searchAgents()
   }
 
   _onSearchTextChanged(event) {
