@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, LayoutAnimation, TabBarIOS} from 'react-native';
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, Image, LayoutAnimation, TabBarIOS} from 'react-native'
 
 const AgentList = require('./AgentList')
+const LocationMapView = require('./LocationMapView')
 const globeIcon = require('../Resources/globe-icon.png')
 const listIcon  = require('../Resources/list-icon.png') 
 
@@ -39,7 +40,7 @@ class SearchResult extends Component {
               selectedTab: 'mapTab',
             });
           }}>
-          <View style = {{flex: 1 , backgroundColor : 'red'}}/>
+          <LocationMapView data = {this.state.results} />
         </TabBarIOS.Item>
       </TabBarIOS>
     );
@@ -57,4 +58,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = SearchResult
+module.exports = SearchResult;
