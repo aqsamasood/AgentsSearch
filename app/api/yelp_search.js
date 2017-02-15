@@ -25,15 +25,12 @@ import OAuthSimple from 'oauthsimple'
       signatures: {api_key: consumerKey, shared_secret: consumerSecret, access_token: token, access_secret: tokenSecret},
     })
 
-    console.log("Print request: ", request)
    fetch(request.signed_url, {method: "GET"})
     .then((response) => response.json())
     .catch((error) => {
-      console.log(error)
       callback(error)
     })
     .then( item => {
-      console.log(item)
       callback(item)
     }).done();
   }

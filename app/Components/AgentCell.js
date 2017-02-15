@@ -20,7 +20,7 @@ class AgentCell extends Component {
         </View>
          <View style={{flexDirection: 'row', paddingTop: 5}}>
           <Text style = {{fontWeight: 'bold'}}> Phone: </Text>
-          <Text style = {{color: '#1F95E3'}}>{agent.phone}</Text>
+          <Text style = {{color: '#1F95E3'}}>{agent.display_phone}</Text>
          </View>
         <View style={{flexDirection: 'row', paddingTop: 5}}>
           <Text style = {{fontWeight: 'bold'}}> Address: </Text>

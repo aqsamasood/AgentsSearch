@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, NetInfo, NavigatorIOS, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, NetInfo, Image } from 'react-native';
 import SearchResult from './SearchResult';
 
 const homeImage = require('../Resources/home-icon.png');
-const yelp_search = require('../API/yelp_search');
+const yelp_search = require('../api/yelp_search');
 const Texts = {
-  description: 'Search for real estate agents by city or country.',
-  placeholderText: 'Enter city or country.',
+  description: 'Search for real estate agents by city or country or pincode or lat, long.',
+  placeholderText: 'Enter lat, long or city or country.',
   noInternetError: 'No internet connection',
 }
 
@@ -51,19 +51,17 @@ class Search extends Component {
   //API call to search agents
   _searchAgents() {
     let nav = this.props.navigator
+    let state = this.props.route
+
       yelp_search.fetchList(this.state.searchString, function(result) {
       if (result.businesses) {
         nav.push({
-          title: "Agent List",
           component: SearchResult,
-          leftButtonTitle: '',
-          onLeftButtonPress: () => nav.pop(),
           passProps: {
             data: result
           }
         })
       } else{
-        console.log("Error", result)
         alert(result.error.text)
       };
     })
