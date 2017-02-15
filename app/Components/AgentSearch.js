@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, NetInfo, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, NetInfo, Image, ActivityIndicator, LayoutAnimation } from 'react-native';
 import SearchResult from './SearchResult';
 
 const homeImage = require('../Resources/home-icon.png');
@@ -11,11 +11,16 @@ const Texts = {
 }
 
 class Search extends Component {
-  state = {
-    searchString: '',
-    isConnected: null,
-    position: 'unknown',
-  };
+    constructor(props) {
+    super(props);
+    this.state = {
+      searchString: '',
+      isConnected: null,
+      position: 'unknown',
+      isLoadiing: false,
+    };
+
+  }
 
   componentDidMount() {
     //Get user's current location
@@ -50,12 +55,14 @@ class Search extends Component {
 
   //API call to search agents
   _searchAgents() {
-    let nav = this.props.navigator
-    let state = this.props.route
+    this.setState({isLoadiing: true});
+    var self = this
 
-      yelp_search.fetchList(this.state.searchString, function(result) {
+    yelp_search.fetchList(this.state.searchString, function(result) {
+      self.setState({isLoadiing: false});
+
       if (result.businesses) {
-        nav.push({
+        self.props.navigator.push({
           component: SearchResult,
           passProps: {
             data: result
@@ -69,14 +76,12 @@ class Search extends Component {
 
   _handleUserCurrentLocation() {
     let position = this.state.position
-    console.log("Cureent location :", position.coords.latitude + "," + position.coords.longitude)
     this.state.searchString = position.coords.latitude + "," + position.coords.longitude
     this._searchAgents()
   }
 
   _onSearchTextChanged(event) {
     this.setState({ searchString: event.nativeEvent.text });
-    console.log(this.state.searchString);
   }
 
   _onSubmitSearchText = () => {
@@ -85,12 +90,15 @@ class Search extends Component {
     } else {
       alert(Texts.noInternetError)
     }  
-}
+  }
 
   render() {
     return(
       <View style = {styles.container}>
-        <Text style = {styles.description}>{Texts.description}</Text>
+      <ActivityIndicator size='small'
+      hidesWhenStopped = {true}
+      animating = {this.state.isLoadiing } />
+      <Text style = {styles.description}>{Texts.description}</Text>
       <TextInput style = {styles.searchInput}
         autoCapitalize = "words"
         returnKeyType = {'search'}

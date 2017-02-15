@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, LayoutAnimation } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 
 class LocationMapView extends Component {

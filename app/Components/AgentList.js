@@ -15,7 +15,6 @@ class AgentList extends Component {
   }
 
   render() {
-    console.log("PRINT COUNT", this.state.count)
     return (
      <ListView
           style={{flex: 1, paddingTop: 20, paddingBottom: 40}}

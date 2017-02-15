@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Image, LayoutAnimation, TabBarIOS} from 'react-native'
+import { StyleSheet, Text, View, Image, TabBarIOS} from 'react-native'
 
 const AgentList = require('./AgentList')
 const LocationMapView = require('./LocationMapView')
